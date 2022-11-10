@@ -1,0 +1,29 @@
+.square {
+    height: 150px;
+    width: 150px;
+    background-color: #b9fff8;
+    margin: 10px;
+    border-radius: 25px;
+}
+
+.square-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.square-parent {
+    margin-top: 50px;
+}
+
+.square h2 {
+    font-size: 40px;
+    top: 40px;
+}
+
+a {
+    text-decoration: none;
+    color: rgb(192, 65, 26);
+}

@@ -1,0 +1,131 @@
+.profcard {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.rect {
+    padding: 35px;
+    background-color: rgb(85, 168, 193);
+    /* height: 40em; */
+    width: 50em;
+    border-radius: 40px;
+    /* position: relative;
+    left: 380px; */
+}
+
+img {
+    height: 150px;
+    width: 150px;
+    border-radius: 100px;
+    /* display:flex;
+    justify-content:center;
+    align-items:center; */
+    /* margin-left: auto;
+    margin-right: auto; */
+}
+
+.circle {
+    /* position: relative; */
+    /* top: 20px; */
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.square {
+    height: 150px;
+    width: 150px;
+    background-color: #b9fff8;
+    margin: 10px;
+    border-radius: 25px;
+}
+
+.square-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.square-parent {
+    margin-top: 50px;
+}
+
+h4 {
+    font-weight: 400;
+}
+
+.date {
+    font-weight: 600;
+    color: black;
+    background-color: transparent;
+}
+
+span {
+    padding: "10px";
+}
+
+.circle .points {
+    color: rgb(69, 25, 211);
+}
+
+.circle .points-num {
+    margin-left: 7px;
+    padding: 20px 3px;
+    margin-top: "30px";
+    color: rgb(192, 65, 26);
+}
+
+.points-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user {
+    padding-top: 15px;
+}
+
+.points-container img {
+    height: 30px;
+    width: 30px;
+    margin-left: "30px";
+}
+
+.logout {
+    transition-delay: 1s;
+    background-color: red;
+    color: white;
+    transition: 5s;
+}
+
+.admin:active,
+.logout:active {
+    transform: scale(1.175);
+    transition: 1s;
+}
+
+.admin {
+    transition: 5s;
+    background: linear-gradient(rgb(211, 28, 239), rgb(14, 174, 206));
+}
+
+.admin:hover {
+    animation-name: glower;
+    animation-duration: 5s;
+    animation-delay: 0.1s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes glower {
+    0% {
+        background: linear-gradient(rgb(215, 97, 234), rgb(74, 182, 204));
+    }
+    33% {
+        background: linear-gradient(rgb(200, 90, 220), rgb(54, 162, 184));
+    }
+    100% {
+        background: linear-gradient(rgb(215, 97, 234), rgb(74, 182, 204));
+    }
+}
