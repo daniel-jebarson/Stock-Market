@@ -1,0 +1,131 @@
+@keyframes color_changer {
+    0% {
+        background: linear-gradient(90deg, #007cf0, #00dfd8);
+        color: transparent;
+        background-clip: text;
+    }
+    33% {
+        background: linear-gradient(90deg, #7928ca, #ff0080);
+        color: transparent;
+        background-clip: text;
+    }
+    66% {
+        background: linear-gradient(90deg, #ec9f05, #ff4e00, #f9cb28);
+        color: transparent;
+        background-clip: text;
+    }
+    100% {
+        background: linear-gradient(90deg, #ec9f05, #ff4e00, #f9cb28);
+        color: transparent;
+        background-clip: text;
+    }
+}
+
+@keyframes border_changer {
+    0% {
+        border: 1px solid #007cf0;
+        /* color: #007cf0; */
+        /* color: black; */
+        box-shadow: 0 0 7px #fff, 0 0 10px #007cf0, 0 0 21px #007cf0;
+        /* background: linear-gradient(90deg, #007cf0, #00dfd8); */
+    }
+    33% {
+        border: 1px solid #7928ca;
+        box-shadow: 0 0 7px #fff, 0 0 10px #7928ca, 0 0 21px #7928ca;
+        /* background: linear-gradient(90deg, #7928ca, #ff0080); */
+    }
+    66% {
+        border: 1px solid #ec9f05;
+        box-shadow: 0 0 7px #fff, 0 0 10px #ec9f05, 0 0 21px #ec9f05;
+        /* background: linear-gradient(90deg, #ec9f05, #ff4e00, #f9cb28); */
+    }
+    100% {
+        border: 1px solid #ec9f05;
+        box-shadow: 0 0 7px #fff, 0 0 10px #ec9f05, 0 0 21px #ec9f05;
+        /* background: linear-gradient(90deg, #ec9f05, #ff4e00, #f9cb28); */
+    }
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.gap {
+    margin-top: 90px;
+    margin-left: 30px;
+}
+
+.image-fix {
+    margin: 70px 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.image-fix img {
+    padding: 70px 50px;
+    width: 450px;
+    height: 500px;
+}
+
+.small-flex {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 350px;
+}
+
+.small-flex button {
+    padding: 0px 43px;
+    height: 45px;
+    cursor: pointer;
+    margin-top: 35px;
+    border-radius: 5px;
+    font-size: medium;
+}
+
+.login {
+    background-color: black;
+    color: white;
+    animation: border_changer 8s cubic-bezier(0.42, 0, 1, 1) infinite;
+}
+
+.login:hover {
+    scale: 1.05;
+    background-color: white;
+    color: black;
+    box-shadow: none;
+    border: none;
+    background: linear-gradient(90deg, #7928ca, #ff0080);
+}
+
+.register {
+    background-color: white;
+    color: black;
+}
+
+.register:hover {
+    background-color: black;
+    color: white;
+    border: 1px solid white;
+}
+
+.title {
+    font-size: 36px;
+    animation: color_changer 8s cubic-bezier(0.42, 0, 1, 1) infinite;
+    text-transform: uppercase;
+    font-weight: 900;
+    color: transparent;
+    background-clip: text;
+    margin-left: 15px;
+    margin-top: 17px;
+}
+
+.title:hover {
+    background-clip: initial;
+    /* color: white; */
+    cursor: pointer;
+}
