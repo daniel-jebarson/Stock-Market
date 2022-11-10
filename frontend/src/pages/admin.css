@@ -1,0 +1,14 @@
+.attackSubmitTransit {
+    border-radius: 30px;
+    padding: 13px 33px;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    background-color: rgb(136, 210, 229);
+    text-transform: uppercase;
+}
+
+.attackSubmitTransit:hover {
+    transition: 0.5s;
+    transform: scale(1.075);
+}
