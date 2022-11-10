@@ -1,0 +1,64 @@
+.bodys {
+    background-color: rgb(16, 16, 17);
+    margin: 20px 20px 110px 100px;
+}
+
+.howtoplay {
+    margin-top: 40px;
+    color: white;
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #7928ca, 0 0 40px #7928ca, 0 0 50px #7928ca, 0 0 60px #7928ca, 0 0 70px #7928ca;
+}
+
+.cards-list {
+    z-index: 0;
+    width: 98%;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    border-style: solid;
+    border-radius: 10px;
+    border-color: #7928ca;
+    box-shadow: 0 0 10px #7928ca;
+}
+
+.card {
+    margin: 30px auto;
+    width: 90%;
+    height: 450px;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.card .card_image {
+    width: inherit;
+    height: inherit;
+    border-radius: 40px;
+    object-fit: cover;
+}
+
+.card_title {
+    border-radius: 0px 0px 40px 40px;
+    font-family: sans-serif;
+    font-size: 20px;
+    margin-top: 30px;
+    height: 40px;
+}
+
+
+/* .card:hover {
+    transform: scale(0.9, 0.9);
+    box-shadow: 5px 5px 30px 15px rgba(0, 0, 0, 0.25), -5px -5px 30px 15px rgba(0, 0, 0, 0.22);
+} */
+
+.title-white {
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    line-height: 40px;
+}
+
+@media all and (max-width: 500px) {
+    .card-list {
+        /* On small screens, we are no longer using row direction but column */
+        flex-direction: column;
+    }
+}
