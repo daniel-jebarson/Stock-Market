@@ -72,7 +72,9 @@ class admin extends Component {
   };
 
   displayUserData = () => {
-    if (!this.state.products.length) return console.log("ERRRRRROR");
+    // if (!this.state.products.length) return console.log("ERRRRRROR");
+    if (!this.state.products.length || !this.state.profileData)
+      return "Loading...";
 
     return this.state.products.map((product, index) => {
       return product["username"] != "admin" ? (
@@ -88,33 +90,42 @@ class admin extends Component {
             padding: "60px 100px",
           }}
         >
-          <div>
-            <h3>UserName: {product["username"]} </h3>
-            <h3>
-              Email: {this.state.profileData[product["username"]]["email"]}{" "}
-            </h3>
-            <h3>StartDate: {product["start"]}</h3>
-            <h3>Coins: {product["coins"]}</h3>
-            <h3>Profit: {product["profit"]}</h3>
-            <h3>No of Purchases:{product["total"]}</h3>
-            <h3>
-              Ban:
-              {this.state.profileData[product["username"]]["ban"]
-                ? "True"
-                : "False"}
-            </h3>
-            <input
-              type={"checkbox"}
-              name="ban"
-              onChange={(e) => {
-                this.banSetter(product["username"], e.target.checked);
-              }}
-              defaultChecked={
-                this.state.profileData[product["username"]]["ban"]
-              }
-            />
-            Ban
-          </div>
+          {this.state.profileData[product["username"]] ? (
+            <div>
+              <h3>UserName: {product["username"]} </h3>
+              <h3>
+                Email:{" "}
+                {this.state.profileData[product["username"]]
+                  ? this.state.profileData[product["username"]]["email"]
+                  : "You are sus!"}{" "}
+              </h3>
+              <h3>StartDate: {product["start"]}</h3>
+              <h3>Coins: {product["coins"]}</h3>
+              <h3>Profit: {product["profit"]}</h3>
+              <h3>No of Purchases:{product["total"]}</h3>
+              <h3>
+                Ban:
+                {this.state.profileData[product["username"]]
+                  ? this.state.profileData[product["username"]]["ban"]
+                    ? "True"
+                    : "False"
+                  : "You are sus...!"}
+              </h3>
+              <input
+                type={"checkbox"}
+                name="ban"
+                onChange={(e) => {
+                  this.banSetter(product["username"], e.target.checked);
+                }}
+                defaultChecked={
+                  this.state.profileData[product["username"]]["ban"]
+                }
+              />
+              Ban
+            </div>
+          ) : (
+            "You are sus...!"
+          )}
 
           <div>
             <table
