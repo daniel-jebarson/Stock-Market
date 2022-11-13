@@ -4,7 +4,10 @@ import React from "react";
 import Axios from "axios";
 import { Component } from "react";
 import GraphMaker from "./GraphMakerMainPage";
+import { useWindowSize } from "react-use";
 import point from "../../assets/point.png";
+// import { Confetti } from "react-confetti";
+import ConfettiSet from "./ConfettiSet";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 class BuySellMainPage extends Component {
@@ -18,6 +21,7 @@ class BuySellMainPage extends Component {
       productPrice: 0,
       buyGain: 0,
       sellGain: 0,
+      confetti: false,
     };
   }
 
@@ -33,6 +37,15 @@ class BuySellMainPage extends Component {
     this.setTodayPrice(product);
     this.setUserProductData(product.split(".")[0]);
     this.setProfit();
+  };
+
+  addConfetti = async () => {
+    function sleep(ms) {
+      return new Promise((resolve) => setTimeout(resolve, ms));
+    }
+    // this.setState({ confetti: true });
+    await sleep(5000);
+    this.setState({ confetti: false });
   };
 
   setProfit = () => {
@@ -151,8 +164,10 @@ class BuySellMainPage extends Component {
 
       times += 1;
       stocks += parseFloat(this.state.number);
+      this.setState({ confetti: true });
+      await this.addConfetti();
       // alert("Stocks bought successfully!");
-      toast.success("Stocks bought successfully!", {
+      toast.success(this.state.number + " stocks bought successfully!", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -242,7 +257,9 @@ class BuySellMainPage extends Component {
       // times += 1;
       stocks -= this.state.number;
       // alert("Stocks sold successfully!");
-      toast.success(`+${sellPrice} 🪙`, {
+      this.setState({ confetti: true });
+      await this.addConfetti();
+      toast.success(`+${sellPrice} 🪙, sold ${this.state.number}`, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -270,6 +287,7 @@ class BuySellMainPage extends Component {
   render() {
     return (
       <>
+        <div>{this.state.confetti && <ConfettiSet />}</div>
         <div style={{ marginTop: "55px" }}>
           <div
             style={{
