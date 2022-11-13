@@ -201,7 +201,11 @@ class admin extends Component {
         }}
       >
         <div
+          onClick={() => {
+            window.location.href = "./profile";
+          }}
           style={{
+            cursor: "pointer",
             alignItems: "center",
             display: "flex",
             textAlign: "center",
