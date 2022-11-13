@@ -12,7 +12,7 @@ export default function ConfettiSet() {
       height={height}
       className="opacity-100"
       numberOfPieces={500}
-      recycle={true}
+      recycle={false}
     />
   );
 }
