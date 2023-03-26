@@ -18,13 +18,17 @@ function Sample_reg() {
   const { search } = useLocation();
 
   useEffect(() => {
-    Axios.get("http://localhost:3002/getUsers").then((response) => {
-      setListOfUsers(response.data);
-    });
+    Axios.get(`${process.env.REACT_APP_BACKEND_URL}/getUsers`).then(
+      (response) => {
+        setListOfUsers(response.data);
+      }
+    );
 
-    Axios.get("http://localhost:3002/getData").then((response) => {
-      setListOfData(response.data);
-    });
+    Axios.get(`${process.env.REACT_APP_BACKEND_URL}/getData`).then(
+      (response) => {
+        setListOfData(response.data);
+      }
+    );
 
     {
       if (!sessionStorage.getItem("username")) {
@@ -56,7 +60,7 @@ function Sample_reg() {
       total = 0,
       start = date;
 
-    Axios.post("http://localhost:3002/createData", {
+    Axios.post(`${process.env.REACT_APP_BACKEND_URL}/createData`, {
       username,
       profit,
       coins,
@@ -89,7 +93,7 @@ function Sample_reg() {
   };
 
   const userCreator = () => {
-    Axios.post("http://localhost:3002/createUser", {
+    Axios.post(`${process.env.REACT_APP_BACKEND_URL}/createUser`, {
       username,
       password,
       email,
@@ -109,66 +113,83 @@ function Sample_reg() {
 
   const navigate = useNavigate();
   const createUser = () => {
-    Axios.get("http://localhost:3002/getUsers").then((response) => {
-      for (var i = 0; i < response.data.length; i++) {
-        if (response.data[i]["username"] === username) {
-          // alert("Username " + response.data[i]["username"] + " already exist!");
-          toast.warn(
-            "Username " + response.data[i]["username"] + " already exist!",
-            {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "colored",
-            }
-          );
-          console.log("User already exist!");
-          return "already exist";
+    // console.log(process.env.REACT_APP_BACKEND_URL);
+    Axios.get(`${process.env.REACT_APP_BACKEND_URL}/getUsers`).then(
+      (response) => {
+        for (var i = 0; i < response.data.length; i++) {
+          if (response.data[i]["username"] === username) {
+            // alert("Username " + response.data[i]["username"] + " already exist!");
+            toast.warn(
+              "Username " + response.data[i]["username"] + " already exist!",
+              {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+              }
+            );
+            console.log("User already exist!");
+            return "already exist";
+          }
         }
+        console.log("User created");
+        sessionStorage.setItem("username", username);
+        sessionStorage.setItem("active", new Date().getTime());
+        console.log("Logged in as " + sessionStorage.getItem("username"));
+        userCreator();
+        dataCreator();
+        alert(`account created success for ${username}`);
+        window.location.href = "/mainPage";
+        navigate("/mainPage");
       }
-      console.log("User created");
-      sessionStorage.setItem("username", username);
-      sessionStorage.setItem("active", new Date().getTime());
-      console.log("Logged in as " + sessionStorage.getItem("username"));
-      userCreator();
-      dataCreator();
-      alert(`account created success for ${username}`);
-      window.location.href = "/mainPage";
-      navigate("/mainPage");
-    });
+    );
   };
 
   const [password1, setPassword1] = useState("");
   const [username1, setUsername1] = useState("");
 
   const confirmUser = (event) => {
-    Axios.get("http://localhost:3002/getUsers").then((response) => {
-      for (var i = 0; i < response.data.length; i++) {
-        if (response.data[i]["username"] === username1) {
-          if (response.data[i]["password"] === password1) {
-            if (response.data[i]["ban"] == false) {
-              toast.success("Login success !", {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-              });
-              alert("Welcome " + response.data[i]["username"] + " !");
-              sessionStorage.setItem("username", username1);
-              sessionStorage.setItem("active", new Date().getTime());
-              window.location.href = "/mainPage";
-              navigate("/mainPage");
-              return "Login Success";
+    Axios.get(`${process.env.REACT_APP_BACKEND_URL}/getUsers`).then(
+      (response) => {
+        for (var i = 0; i < response.data.length; i++) {
+          if (response.data[i]["username"] === username1) {
+            if (response.data[i]["password"] === password1) {
+              if (response.data[i]["ban"] === false) {
+                toast.success("Login success !", {
+                  position: "top-right",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "colored",
+                });
+                alert("Welcome " + response.data[i]["username"] + " !");
+                sessionStorage.setItem("username", username1);
+                sessionStorage.setItem("active", new Date().getTime());
+                window.location.href = "/mainPage";
+                navigate("/mainPage");
+                return "Login Success";
+              } else {
+                toast.error("Sorry you have been banned!", {
+                  position: "top-right",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "colored",
+                });
+                return "Banned!";
+              }
             } else {
-              toast.error("Sorry you have been banned!", {
+              toast.error("Wrong Password!", {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -178,35 +199,23 @@ function Sample_reg() {
                 progress: undefined,
                 theme: "colored",
               });
-              return "Banned!";
+              return "Wrong password";
             }
-          } else {
-            toast.error("Wrong Password!", {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "colored",
-            });
-            return "Wrong password";
           }
         }
-      }
 
-      toast.error("Invalid username!", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
-    });
+        toast.error("Invalid username!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      }
+    );
     event.preventDefault();
   };
 

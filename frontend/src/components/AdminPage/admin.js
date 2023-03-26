@@ -17,15 +17,17 @@ class admin extends Component {
   }
 
   getTotal = () => {
-    axios.get("http://localhost:3002/getTotal").then((response) => {
-      const { data } = response;
-      this.setState({ total_purchases: data[0].total });
-    });
+    axios
+      .get(`${process.env.REACT_APP_BACKEND_URL}/getTotal`)
+      .then((response) => {
+        const { data } = response;
+        this.setState({ total_purchases: data[0].total });
+      });
   };
 
   getDetails = () => {
     axios
-      .get("http://localhost:3002/getUsers")
+      .get(`${process.env.REACT_APP_BACKEND_URL}/getUsers`)
       .then((response) => {
         const data = response.data;
         const d = {};
@@ -44,7 +46,7 @@ class admin extends Component {
 
   getUserData = async () => {
     await axios
-      .get("http://localhost:3002/getData")
+      .get(`${process.env.REACT_APP_BACKEND_URL}/getData`)
       .then((response) => {
         const data = response.data;
 
@@ -60,7 +62,9 @@ class admin extends Component {
 
   banSetter = async (username, status) => {
     await axios
-      .put(`http://localhost:3002/ban/${username}`, { ban: status })
+      .put(`${process.env.REACT_APP_BACKEND_URL}/ban/${username}`, {
+        ban: status,
+      })
       .then((res) => {
         let data = this.state.profileData;
         data[username]["ban"] = status;

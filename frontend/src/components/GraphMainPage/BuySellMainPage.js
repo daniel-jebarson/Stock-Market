@@ -62,17 +62,19 @@ class BuySellMainPage extends Component {
   setUserProductData = async (product) => {
     const username = sessionStorage.getItem("username");
 
-    await Axios.get("http://localhost:3002/getData").then((response) => {
-      for (var i = 0; i < response.data.length; i++) {
-        if (response.data[i]["username"] === username) {
-          this.setState({
-            userData: response.data[i],
-            productPrice: response.data[i][product.split(".")[0]]["cp"],
-          });
-          // console.log(this.state.userData);
+    await Axios.get(`${process.env.REACT_APP_BACKEND_URL}/getData`).then(
+      (response) => {
+        for (var i = 0; i < response.data.length; i++) {
+          if (response.data[i]["username"] === username) {
+            this.setState({
+              userData: response.data[i],
+              productPrice: response.data[i][product.split(".")[0]]["cp"],
+            });
+            // console.log(this.state.userData);
+          }
         }
       }
-    });
+    );
   };
 
   setTodayPrice = async (product) => {
@@ -92,12 +94,13 @@ class BuySellMainPage extends Component {
 
   putData = async (data) => {
     const username = sessionStorage.getItem("username");
-    await Axios.put(`http://localhost:3002/update/${username}`, data).then(
-      (response) => {
-        console.log(response.data);
-        // this.updateData()
-      }
-    );
+    await Axios.put(
+      `${process.env.REACT_APP_BACKEND_URL}/update/${username}`,
+      data
+    ).then((response) => {
+      console.log(response.data);
+      // this.updateData()
+    });
   };
 
   buyItem = async () => {
@@ -115,7 +118,7 @@ class BuySellMainPage extends Component {
 
       this.nameInput.focus();
       return;
-    } else if (this.state.number == undefined || this.state.number == "") {
+    } else if (this.state.number === undefined || this.state.number === "") {
       // alert("Please specify the number of tasks");
       toast.warn("Please specify the number of stocks", {
         position: "bottom-right",
@@ -207,7 +210,7 @@ class BuySellMainPage extends Component {
       });
       this.nameInput.focus();
       return;
-    } else if (this.state.number == undefined || this.state.number == "") {
+    } else if (this.state.number === undefined || this.state.number === "") {
       // alert("Please specify the number of tasks");
       toast.warn("Please specify the number of stocks", {
         position: "bottom-right",

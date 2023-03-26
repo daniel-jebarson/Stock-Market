@@ -19,14 +19,16 @@ function ProfileCard() {
     setLoading(true);
     const username = sessionStorage.getItem("username");
 
-    Axios.get("http://localhost:3002/getData").then((response) => {
-      for (var i = 0; i < response.data.length; i++) {
-        if (response.data[i]["username"] === username) {
-          setProfileData(response.data[i]);
-          setLoading(false);
+    Axios.get(`${process.env.REACT_APP_BACKEND_URL}/getData`).then(
+      (response) => {
+        for (var i = 0; i < response.data.length; i++) {
+          if (response.data[i]["username"] === username) {
+            setProfileData(response.data[i]);
+            setLoading(false);
+          }
         }
       }
-    });
+    );
   }, []);
 
   if (loading) {

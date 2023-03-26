@@ -4,7 +4,8 @@ import cors from "cors";
 import mongoose from "mongoose";
 import UserModel from "./models/Users.js";
 import DataModel from "./models/Data.js";
-
+import dotenv from "dotenv";
+dotenv.config();
 // const express = require("express");
 const app = express();
 // const mongoose = require("mongoose");
@@ -13,7 +14,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect("mongodb://localhost:27017");
+mongoose.connect(process.env.MONGO_URL);
 
 app.get("/getData", (req, res) => {
   DataModel.find({}, (err, result) => {
@@ -80,7 +81,7 @@ app.put("/ban/:username", async (req, res) => {
       if (err) {
         res.send(err);
       } else {
-        if (data == null) {
+        if (data === null) {
           res.send("Nothing found!");
         } else {
           res.send(data);
@@ -124,7 +125,7 @@ app.put("/update/:username", async (req, res) => {
       if (err) {
         res.send(err);
       } else {
-        if (data == null) {
+        if (data === null) {
           res.send("Nothing found!");
         } else {
           res.send(data);
@@ -134,6 +135,6 @@ app.put("/update/:username", async (req, res) => {
   );
 });
 
-app.listen(3002, () => {
-  console.log("Running on http://localhost:3002");
+app.listen(process.env.PORT || 3002, () => {
+  console.log(`Running on http://localhost:${process.env.PORT}`);
 });
